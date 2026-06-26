@@ -1,0 +1,43 @@
+# ==============================================================================
+#  zshrc.local.example  →  copy to  ~/.zshrc.local
+#
+#  cp zshrc.local.example ~/.zshrc.local
+#
+#  Your committed ~/.zshrc should source this at its very end:
+#      [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+#
+#  This file is matched by *.local in .gitignore, so it NEVER gets committed.
+#  Anything secret, or specific to THIS one machine, belongs here.
+# ==============================================================================
+
+
+# ---- Secrets / API keys ------------------------------------------------------
+# export ANTHROPIC_API_KEY="sk-ant-..."
+# export OPENAI_API_KEY="sk-..."
+# export GITHUB_TOKEN="ghp_..."
+
+
+# ---- Homelab shortcuts (the Pi) ----------------------------------------------
+# export PI_HOST="192.168.1.50"
+# alias pi='ssh matt@$PI_HOST'
+# alias pilogs='ssh matt@$PI_HOST journalctl -u filebrowser -f'
+# alias pidb='ssh matt@$PI_HOST -L 5432:localhost:5432'   # tunnel PostgreSQL
+
+
+# ---- Desktop-only tooling (RTX 4090 box) -------------------------------------
+# Things that only make sense on the workstation. Prefer hostname-branching in
+# the committed ~/.zshrc for non-secret cases; keep truly local stuff here.
+# alias gpu='nvtop'
+
+
+# ---- PATH safety net ---------------------------------------------------------
+# Your manual tools live in ~/.local/bin. This is usually set in the committed
+# ~/.zshrc, but uncomment here if a fresh machine hasn't picked it up yet:
+# case ":$PATH:" in
+#   *":$HOME/.local/bin:"*) ;;
+#   *) export PATH="$HOME/.local/bin:$PATH" ;;
+# esac
+
+
+# ---- Scratch / experiments ---------------------------------------------------
+# Anything you're trying out and don't want synced across machines yet.
