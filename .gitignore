@@ -1,0 +1,42 @@
+# ---- Secrets & Credentials ---------------------------------------------------
+# The whole point of this file
+*.local              # ~/.zshrc.local, etc. — the local-override pattern
+*.secret
+.env
+*_token
+*_key
+id_rsa*
+id_ed25519*
+*.pem
+**/.ssh/
+
+
+# ---- Shell History & State ---------------------------------------------------
+# Machine-specific noise, sometimes sensitive
+.zsh_history
+.bash_history
+.lesshst
+.python_history
+.node_repl_history
+
+
+# ---- Caches / Compiled -------------------------------------------------------
+.zcompdump*
+*.zwc
+__pycache__/
+*.pyc
+
+
+# ---- Plugin-manager content --------------------------------------------------
+# Let the tools fetch their own deps
+# lazy.nvim, Oh My Zsh plugins, etc. download themselves — don't vendor them.
+nvim/.config/nvim/lazy-lock.json.bak
+**/plugged/
+**/.zinit/
+
+
+# ---- OS / Editor Cruft -------------------------------------------------------
+.DS_Store
+*.swp
+*.swo
+*~
