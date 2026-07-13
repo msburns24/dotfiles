@@ -51,6 +51,43 @@ for dir in */; do
 done
 
 
+# ---- Set up zsh + Oh My Posh --------------------------------------------------
+# Installs the zsh shell itself, Oh My Zsh (which zsh/.zshrc sources) and its
+# two plugins referenced there, and the oh-my-posh binary. Runs after the stow
+# loop above so ~/.zshrc is already our symlink before Oh My Zsh's installer
+# looks for it (KEEP_ZSHRC=yes tells it to leave an existing .zshrc alone).
+if ! command -v zsh >/dev/null 2>&1; then
+  echo "==> Installing zsh..."
+  sudo apt update && sudo apt install -y zsh
+fi
+
+if [ "$SHELL" != "$(command -v zsh)" ]; then
+  echo "==> Setting zsh as your login shell..."
+  chsh -s "$(command -v zsh)" || echo "    could not chsh — set it manually with: chsh -s $(command -v zsh)"
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "==> Installing Oh My Zsh..."
+  RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c \
+    "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+  echo "==> Installing zsh-autosuggestions plugin..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
+  echo "==> Installing zsh-syntax-highlighting plugin..."
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+fi
+
+if ! command -v oh-my-posh >/dev/null 2>&1; then
+  echo "==> Installing Oh My Posh..."
+  curl -fsSL https://ohmyposh.dev/install.sh | bash -s -- -d "$HOME/.local/bin"
+fi
+
+
 # ---- Done --------------------------------------------------------------------
 echo
 echo "Dotfiles linked. Next steps:"
