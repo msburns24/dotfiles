@@ -31,7 +31,8 @@ require "nvchad.options"
 local o = vim.o
 
 
-o.shell = "powershell"    -- Use PowerShell instead of Command Prompt
+-- Prefer zsh (Linux/macOS, or Windows w/ zsh on PATH); fall back to PowerShell
+o.shell = vim.fn.executable("zsh") == 1 and "zsh" or "powershell"
 o.expandtab = true        -- Use spaces when inserting a tab
 o.smartindent = true      -- Maintain indent when starting new line
 
