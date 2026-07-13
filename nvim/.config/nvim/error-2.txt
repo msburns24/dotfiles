@@ -1,0 +1,11 @@
+vim.schedule callback: vim/_core/system:324: ENOENT: no such file or directory (cmd): 'tree-sitter'                                                                                                 
+stack traceback:                                                                                                                                                                                    
+        [C]: in function 'error'                                                                                                                                                                    
+        vim/_core/system:324: in function 'spawn'                                                                                                                                                   
+        vim/_core/system:432: in function 'system'                                                                                                                                                  
+        ...ree-sitter-manager.nvim/lua/tree-sitter-manager/util.lua:79: in function 'run_async'                                                                                                     
+        ...itter-manager.nvim/lua/tree-sitter-manager/installer.lua:29: in function 'callback'                                                                                                      
+        ...ree-sitter-manager.nvim/lua/tree-sitter-manager/util.lua:75: in function 'run_async'                                                                                                     
+        ...itter-manager.nvim/lua/tree-sitter-manager/installer.lua:22: in function 'treesitter_build'                                                                                              
+        ...itter-manager.nvim/lua/tree-sitter-manager/installer.lua:69: in function 'callback'                                                                                                      
+        ...ree-sitter-manager.nvim/lua/tree-sitter-manager/util.lua:82: in function <...ree-sitter-manager.nvim/lua/tree-sitter-manager/util.lua:80>       

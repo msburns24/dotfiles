@@ -33,17 +33,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 
 vim.api.nvim_create_autocmd('FileType', {
-  desc = 'Setup code folding with nvim-treesitter.',
+  desc = 'Enable native treesitter highlighting + folding when a parser exists.',
   -- pattern = { 'python' },
 
   callback = function()
-    vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-    vim.wo[0][0].foldmethod = 'expr'
-    vim.wo[0][0].foldlevel = 99  -- Start with all folds open
-    -- vim.opt.foldlevelstart = 99
-
-    -- Saw this on a tutorial but it throws an error
-    -- vim.wo[0][0].foldlevelstart = 99
+    -- vim.treesitter.start() only succeeds when a parser is available (bundled
+    -- with Neovim or installed via tree-sitter-manager). Only set the treesitter
+    -- foldexpr when it does, to avoid errors on parserless filetypes.
+    if pcall(vim.treesitter.start) then
+      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[0][0].foldmethod = 'expr'
+      vim.wo[0][0].foldlevel = 99  -- Start with all folds open
+    end
   end
 })
 
