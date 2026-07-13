@@ -28,22 +28,26 @@ alias gcb='xclip -selection clipboard -o'
 alias cls=clear
 alias python=python3
 alias py=python3
+alias echo-path='sed "s/:/\n/g" <<< "$PATH"'
+
+# Copy Working Directory / cd to clipboard 
+alias cpwd='pwd | scb'
+function cdcb() { cd $(gcb) }
 
 # Improve ll with `eza` (Reason: Column names, icons, etc.)
 alias ll='eza -Ahl --time-style="+%Y-%m-%d %l:%M %p  " --icons --group-directories-first --no-user --no-permissions'
 
 
-# Default text editor
+# Environment Variables (non-secret)
 export EDITOR="nvim"
+export TESSERACT_PATH="/usr/bin/tesseract"
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 
 # Setup password copying
 PW=$(cat /home/msburns/programming/keys/linux-mint.txt)
 alias cppw='echo $PW | xclip -selection clipboard'
 
-
-# Other Environment Variables
-export ELEVENLABS_API_KEY=$(cat ~/programming/keys/ElevenLabs.txt)
 
 
 
