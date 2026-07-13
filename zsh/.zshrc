@@ -44,11 +44,6 @@ export TESSERACT_PATH="/usr/bin/tesseract"
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 
-# Setup password copying
-PW=$(cat /home/msburns/programming/keys/linux-mint.txt)
-alias cppw='echo $PW | xclip -selection clipboard'
-
-
 
 
 # ---- Template ----------------------------------------------------------------

@@ -34,14 +34,28 @@ dotfiles/
 gh repo clone msburns24/dotfiles ~/dotfiles
 cd ~/dotfiles
 
-# Run installation scripts
-./install.sh                       # install stow, symlink every package
-./scripts/install-local-tools.sh   # kitty, neovim, eza, resvg, fd (~/.local)
-./scripts/restore-packages.sh      # apt + flatpak packages from manifests
+# One command does it all: shows what's missing, asks once, then installs
+# dependencies, symlinks every package, sets up zsh, and (optionally) restores
+# your apt/flatpak apps.
+./install.sh
 
-cp zshrc.local.example ~/.zshrc.local   # Secrets / host-specific bits
 exec zsh
 ```
+
+`install.sh` reads the dependency list from
+[`packages/dependencies.conf`](packages/dependencies.conf) and prints a
+present/missing table before touching anything:
+
+```bash
+./install.sh            # interactive — confirms before installing
+./install.sh --dry-run  # just show the table, install nothing
+./install.sh --yes      # non-interactive: assume "yes" to every prompt
+```
+
+To add a new tool to the bootstrap, add **one line** to
+`packages/dependencies.conf` (and, for a non-apt tool, one `install_*` function
+in [`scripts/install-lib.sh`](scripts/install-lib.sh)). It's picked up
+automatically — no need to edit `install.sh`.
 
 ## Day-to-day
 
@@ -58,7 +72,7 @@ stow -D <pkg>                      # un-link a package
 - **Secrets and machine-local config** live in `~/.zshrc.local` (git-ignored),
   sourced at the end of `~/.zshrc`. Nothing secret goes in a committed file.
 - **Manual tools** install under `~/.local`, with symlinks in `~/.local/bin`.
-- **`fd`** ships as `fdfind` on Debian/Ubuntu; `install-local-tools.sh`
-  symlinks it to `fd` so Neovim plugins find it.
+- **`fd`** ships as `fdfind` on Debian/Ubuntu; the installer symlinks it to
+  `fd` so Neovim plugins find it.
 - **Per-host differences** branch on `$(hostname)` inside `~/.zshrc`, or in a
   sourced `~/.zshrc.<hostname>` file.
