@@ -64,6 +64,12 @@ SetTabSize(tabsize)
 
 ---- Appearance ----------------------------------------------------------------
 
+-- Enable 24-bit (truecolor) highlights. base46 (NvChad's theme) defines its
+-- colors with gui values only, so without this most Treesitter/theme groups
+-- render colorless. Neovim normally auto-detects this, but the detection query
+-- doesn't complete reliably over SSH, so we set it explicitly.
+o.termguicolors = true
+
 -- Highlight / Search ('/')
 o.incsearch = true        -- Start highlighting search while typing
 o.hlsearch = false        -- Stop highlighting after pressing <CR>

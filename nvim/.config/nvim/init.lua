@@ -89,7 +89,12 @@ require("lazy").setup(
 
 
 -- load theme
+-- NOTE: `syntax` and `treesitter` hold the base46 colors for @keyword/@variable/
+-- @type/etc. NvChad normally loads them from its nvim-treesitter plugin config,
+-- but we disable that plugin (see lua/plugins/init.lua), so we load them here.
 dofile(vim.g.base46_cache .. "defaults")
+dofile(vim.g.base46_cache .. "syntax")
+dofile(vim.g.base46_cache .. "treesitter")
 dofile(vim.g.base46_cache .. "statusline")
 
 
