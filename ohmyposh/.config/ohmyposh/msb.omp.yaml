@@ -1,0 +1,102 @@
+$schema: https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+console_title_template: "{{if .Root}}(Admin) {{end}}{{.Folder}}"
+blocks:
+- type: prompt
+  alignment: left
+  newline: true
+  segments:
+  #     08:00:38   dotfiles    main    ?5 ~5  [249ms]
+  - type: root
+    template: "\uF0E7"          # 
+    options:
+      cache_duration: none
+    foreground: "#313244"
+    powerline_symbol: "\uE0C4"  #  
+    background: "#f1184c"
+    style: powerline
+  
+  - type: os
+    template: " {{ if .WSL }}WSL at {{ end }}{{.Icon}} "
+    leading_diamond: "   "
+    foreground: "#89b4fa"
+    background: "#313244"
+    style: diamond
+  
+  - type: time
+    template: "{{ .CurrentDate | date .Format }}"
+    options:
+      time_format: "15:04:05"
+    foreground: "#89b4fa"
+    powerline_symbol: ""
+    background: "#313244"
+    style: powerline
+  
+  - type: path
+    template: " \uE5FF {{ .Path }}"   #  
+    powerline_symbol: " "
+    options:
+      folder_separator_icon: /
+      style: folder
+    foreground: "#cba6f7"
+    background: "#313244"
+    style: powerline
+
+  - type: git
+    template: " {{ .UpstreamIcon }}{{ .HEAD }} {{ if .Staging.Changed }} \uF046 {{\
+      \ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed)\
+      \ }} |{{ end }}{{ if .Working.Changed }} \uF044  {{ .Working.String }}{{ end\
+      \ }}{{ if gt .StashCount 0 }} | \uEB4B {{ .StashCount }}{{ end }} "
+    # U+F046 =     U+F044 =     U+EB4B =  
+    options:
+      branch_icon: " "
+      fetch_status: true
+      fetch_upstream_icon: true
+    foreground: "#cdd6f4"
+    powerline_symbol: " "
+    background: "#313244"
+    style: powerline
+  
+  - type: python
+    template: "\uE235 {{ if .Venv }}{{ .Venv }}{{ else }}{{ .Full }}{{ end }} "
+    #  
+    options:
+      cache_duration: none
+      display_mode: environment
+    foreground: "#a6e3a1"
+    powerline_symbol: " "
+    background: "#313244"
+    style: powerline
+
+  - type: executiontime
+    template: "[{{ .FormattedMs }}]"
+    options:
+      style: austin
+      threshold: 1
+    foreground: "#7f849c"
+    powerline_symbol: " "
+    background: "#1e1e2e"
+    style: powerline
+
+- type: prompt
+  alignment: left
+  newline: true
+  segments:
+
+  - type: status
+    template: "• "
+    style: diamond
+    foreground: "#7ba879"
+    background: "#1e1e2e"
+    foreground_templates:
+      - "{{ if .Error }}#b4677e{{ end }}"
+    options:
+      always_enabled: true
+
+  - options:
+      cache_duration: none
+    template: "\uEAB6 "   # 
+    foreground: "#cdd6f4"
+    type: text
+    style: plain
+
+version: 3

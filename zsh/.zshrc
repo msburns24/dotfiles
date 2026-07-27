@@ -1,6 +1,13 @@
 # ---- Custom ------------------------------------------------------------------
 
+# PATH Additions
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.opencode/bin:$PATH"
+
+
+# Configures libvirt to use system URI for WinApps
+export LIBVIRT_DEFAULT_URI="qemu:///system"
 
 
 # Standard plugins in `$ZSH/plugins/`, custom in `$ZSH_CUSTOM/plugins/`
@@ -9,7 +16,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # Oh My Posh
 export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
-eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/msb.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/msb.omp.yaml)"
 
 
 # Yazi
@@ -26,9 +33,11 @@ function y() {
 alias scb='xclip -selection clipboard'
 alias gcb='xclip -selection clipboard -o'
 alias cls=clear
+alias dfh="df -h"
 alias python=python3
 alias py=python3
 alias echo-path='sed "s/:/\n/g" <<< "$PATH"'
+alias src-venv='source .venv/bin/activate'
 
 # Copy Working Directory / cd to clipboard 
 alias cpwd='pwd | scb'
@@ -128,3 +137,9 @@ export TESSERACT_PATH="/usr/bin/tesseract"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Let gpg-agent draw its passphrase prompt in the current terminal (needed over SSH)
+export GPG_TTY=$(tty)
+# Point the running gpg-agent at the current terminal
+gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
+

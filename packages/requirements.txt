@@ -1,0 +1,16 @@
+# Requirements for ~/venvs/main.
+iprogress
+ipykernel
+ipython
+jupyter
+loguru
+pandas[plot, output-formatting, excel, parquet, feather, clipboard]
+pyperclip
+requests
+PyYAML
+rich
+scikit-learn
+scipy
+typer
+tabulate
+tqdm
